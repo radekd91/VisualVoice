@@ -12,7 +12,9 @@ import librosa
 import torch
 import cv2
 import numpy as np
-from torch._six import container_abcs, string_classes, int_classes
+# from torch._six import container_abcs, string_classes, int_classes
+from torch._six import string_classes
+int_classes = int
 import json
 import shutil
 import matplotlib.pyplot as plt

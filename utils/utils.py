@@ -12,7 +12,10 @@ import librosa
 import torch
 import cv2
 import numpy as np
-from torch._six import container_abcs, string_classes, int_classes
+# from torch._six import container_abcs, string_classes, int_classes
+from torch._six import string_classes
+int_classes = int
+import collections.abc as container_abcs
 import json
 import shutil
 import matplotlib.pyplot as plt
@@ -24,7 +27,7 @@ def warpgrid(bs, HO, WO, warp=True):
     x = np.linspace(-1, 1, WO)
     y = np.linspace(-1, 1, HO)
     xv, yv = np.meshgrid(x, y)
-    grid = np.zeros((bs, HO, WO, 2))
+    grid = np.zeros(bs, HO, WO, 2)
     grid_x = xv
     if warp:
         grid_y = (np.power(21, (yv+1)/2) - 11) / 10

@@ -22,6 +22,7 @@ from data.audioVisual_dataset import generate_spectrogram_complex, load_mouthroi
 from utils import utils
 from utils.lipreading_preprocess import *
 from facenet_pytorch import MTCNN
+import soundfile as sf
 
 def audio_normalize(samples, desired_rms = 0.1, eps = 1e-4):
   rms = np.maximum(eps, np.sqrt(np.mean(samples**2)))
@@ -224,7 +225,10 @@ def main():
 		#output separated audios
 		if not os.path.isdir(opt.output_dir_root):
 			os.mkdir(opt.output_dir_root)
-		librosa.output.write_wav(os.path.join(opt.output_dir_root, 'speaker' + str(speaker_index+1) + '.wav'), avged_sep_audio, opt.audio_sampling_rate)
+		# doesn't work anymore with newer librosa, use soundfile instead
+		# librosa.output.write_wav(os.path.join(opt.output_dir_root, 'speaker' + str(speaker_index+1) + '.wav'), avged_sep_audio, opt.audio_sampling_rate)
+		sf.write(os.path.join(opt.output_dir_root, 'speaker' + str(speaker_index+1) + '.wav'), avged_sep_audio, opt.audio_sampling_rate)
+
 
 if __name__ == '__main__':
     main()
